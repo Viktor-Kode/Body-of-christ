@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import { FaBars, FaTimes } from "react-icons/fa"; // menu icons
 import banner from "../assets/images/banner.png";
+import { motion, useInView } from "framer-motion";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  // Create refs and inView hooks for different sections
+  const heroRef = React.useRef(null);
+  const heroInView = useInView(heroRef, { once: true, amount: 0.3 });
+
+  const textRef = React.useRef(null);
+  const textInView = useInView(textRef, { once: true, amount: 0.3 });
+
+  const imageRef = React.useRef(null);
+  const imageInView = useInView(imageRef, { once: true, amount: 0.3 });
 
   return (
     <header className="bg-white w-full top-0 left-0 z-50 shadow-md">
@@ -11,9 +22,9 @@ const Header = () => {
       <nav className="flex justify-between items-center max-w-7xl mx-auto px-6 py-4">
         {/* Logo */}
         <div id="logo">
-          <h1 className="text-2xl font-bold text-blue-700 tracking-wide">
-            Body <span className="text-gray-800">Of Christ</span>
-          </h1>
+          <div className="flex items-center gap-2">
+            <img src="/logo.png" alt="logo" className="h-20 w-20" />
+          </div>
         </div>
 
         {/* Navbar Links (Desktop) */}
@@ -100,10 +111,23 @@ const Header = () => {
       )}
 
       {/* Hero Section */}
-      <section id="home" className="bg-gray-50 py-16">
+      <motion.section
+        ref={heroRef}
+        initial={{ opacity: 0, y: 100 }}
+        animate={heroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
+        transition={{ duration: 1 }}
+        id="home" 
+        className="bg-gray-50 py-16"
+      >
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Text Section */}
-          <div className="text-center md:text-left">
+          <motion.div 
+            ref={textRef}
+            initial={{ opacity: 0, x: -100 }}
+            animate={textInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -100 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-center md:text-left"
+          >
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
               Body of Christ <br />
               <span className="text-blue-600">Go Ye Apologia Ministry</span>
@@ -119,18 +143,24 @@ const Header = () => {
                 Learn More
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Image Section */}
-          <div className="flex justify-center">
+          <motion.div
+            ref={imageRef}
+            initial={{ opacity: 0, x: 100 }}
+            animate={imageInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex justify-center"
+          >
             <img
               src={banner}
               alt="Ministry Illustration"
               className="w-64 md:w-80"
             />
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
     </header>
   );
 };

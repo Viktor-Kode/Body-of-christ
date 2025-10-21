@@ -3,9 +3,9 @@ import React from "react";
 const eventsData = [
   {
     id: 1,
-    title: "Youth Apologetics Conference",
-    date: "October 15, 2025",
-    venue: "TikTok Live",
+    title: "Bishop Samuel Ajayi Crowther's Day",
+    date: "November 12-14, 2025",
+    venue: "Idi Aba Baptist Girls Colledge, Abeokuta,Ogun State",
     description:
       "A one-day intensive online conference equipping youths to defend their faith with confidence.",
     upcoming: true,
